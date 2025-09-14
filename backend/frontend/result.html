@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compilation Result</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Compilation Result</h1>
+        <p id="result"></p>
+        <a id="downloadLink" href="#" style="display:none;">Download Gerbers</a>
+        <br><br>
+        <a href="index.html">Back to Upload</a>
+    </div>
+    <script>
+        // Load query params (status + link) from URL
+        const params = new URLSearchParams(window.location.search);
+        const status = params.get("status");
+        const chip = params.get("chip");
+        const gerber = params.get("gerber");
+
+        const resultEl = document.getElementById("result");
+        const downloadEl = document.getElementById("downloadLink");
+
+        if (status === "success") {
+            resultEl.innerText = "✅ Compilation Successful! MCU: " + chip;
+            downloadEl.href = gerber;
+            downloadEl.style.display = "inline-block";
+        } else {
+            resultEl.innerText = "❌ Compilation Failed. No compatible board found.";
+        }
+    </script>
+</body>
+</html>
